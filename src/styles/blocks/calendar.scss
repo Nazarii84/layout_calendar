@@ -1,37 +1,44 @@
+$day-size: 100px;
+$day-font-size: 30px;
+$day-gap: 1px;
+$day-border: 1px;
+$day-bg: #eee;
+$day-hover-bg: #ffbfcb;
+$day-border-color: #000;
 $days: mon, tue, wed, thu, fri, sat, sun;
 
 .calendar {
   display: flex;
   flex-wrap: wrap;
-  width: 700px;
-  gap: 1px;
+  width: calc($day-size * 7);
+  gap: $day-gap;
   background: #ccc;
 
   &__day {
-    width: 100px;
-    height: 100px;
-    background-color: #eee;
-    border: 1px solid #000;
-    font-size: 30px;
-    font-family: Arial, sans-serif;
+    width: $day-size;
+    height: $day-size;
+    background-color: $day-bg;
+    border: $day-border solid $day-border-color;
+    font:
+      $day-font-size Arial,
+      sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all 0.5s ease;
-    user-select: none;
     position: relative;
-
-    &:hover {
-      background-color: #ffbecb;
-      transform: translateY(-5px);
-      cursor: pointer;
-    }
+    user-select: none;
+    transition: all 0.5s ease;
 
     &::before {
-      position: absolute;
       content: '';
-      font-family: Arial, sans-serif;
-      font-size: 30px;
+      font: inherit;
+      position: absolute;
+    }
+
+    &:hover {
+      background-color: $day-hover-bg;
+      transform: translateY(-20px);
+      cursor: pointer;
     }
   }
 
@@ -44,7 +51,7 @@ $days: mon, tue, wed, thu, fri, sat, sun;
   @each $day in $days {
     $index: list.index($days, $day) - 1;
     &--start-day-#{$day} &__day:first-child {
-      margin-left: calc(100px * #{$index});
+      margin-left: calc($day-size * #{$index});
     }
   }
 
